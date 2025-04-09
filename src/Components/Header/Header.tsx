@@ -2,21 +2,30 @@ import 'boxicons/css/boxicons.min.css';
 
 import Cart from '../Cart/Cart';
 import './header.css'
+import { useEffect, useState } from 'react';
+
+export type CartProps = {
+    showCart: boolean;
+    setShowCart: React.Dispatch<React.SetStateAction<boolean>>;
+  };
+
 
 const Header = () => {
 
-  {/*Adj a theme ikonhoz egy olyan funkciót amivel váltogatni lehet a light és dark mode között*/}
-  
-  {/*Adj egy funkciót a toggle ikonhoz amivel mobilnézetben le lehet nyitni a navigációs menüt a close ikonnal meg bezárni*/}
+  const [isDark, setIsDark] = useState(false)
+  const [showCart, setShowCart] = useState(false)
+  const [isClosed, setIsClosed] = useState(true)
 
-  {/*
-    Adj egy funkciót a cart-shop ikonhoz amivel le lehet nyitni a vásárlási listát
-    A vásárlási lista egy külön komponens.
-    */}
+  var body = document.getElementsByTagName("body")[0]
+  var menu = document.getElementById("nav-menu");
 
-  {/* Állítsd be az App.css-ben az ul osztályszelektornak, hogy a listaelemek pontok nélkül jelenjenek meg */}
+  useEffect(() => {  
+    isDark ? body.classList.add("dark-theme") : body.classList.remove("dark-theme")
 
-  
+    if(menu != undefined){
+        menu.style.display = isClosed ? "none" : "flex"
+    }
+  }, [isClosed, isDark])
 
   return (
     <>
@@ -27,28 +36,27 @@ const Header = () => {
         </a>
         <div className="nav__menu"  id="nav-menu">      
             <ul className="nav__list">
-                {/*
-                Készítsd el a Header-eket: Home, Featured, Products, New
-                Mindegyik egy listaelem, és azon belül egy hivatkozás
-                a listaelem ostrálya nav__item, a hivatkozás osztálya nav__link
-                */}
+                <li className='nav__item'><a className='nav__link' href='#home'>Home</a></li>
+                <li className='nav__item'><a className='nav__link' href='#featured'>Featured</a></li>
+                <li className='nav__item'><a className='nav__link' href='#products'>Products</a></li>
+                <li className='nav__item'><a className='nav__link' href='#new'>New</a></li>
             </ul>
             <div className="nav__close" id="nav-close">
                 <i className='bx bx-x' ></i>
             </div>
         </div>
         <div className="nav__btns">           
-            <i className='bx bx-moon change-theme' id="theme-button"></i>
+            <i className='bx bx-moon change-theme' id="theme-button" onClick={(() => setIsDark(!isDark))}></i>
             <div className="nav__shop" id="cart-shop" >
-                <i className='bx bx-shopping-bag'></i>
+                <i className='bx bx-shopping-bag' onClick={(() => setShowCart(!showCart))}></i>
             </div>
-            <div className="nav__toggle" id="nav-toggle">
-                <i className='bx bx-grid-alt' ></i>
+            <div className="nav__toggle" id="nav-toggle" >
+                <i className='bx bx-grid-alt' onClick={(() => setIsClosed(!isClosed))}></i>
             </div>
         </div>
     </nav>
 </header>
-{/*Itt jelenjen meg a Cart ha az ikonra kattintottunk */}
+    <Cart showCart={showCart} setShowCart={setShowCart} />
  </>
   )
 }

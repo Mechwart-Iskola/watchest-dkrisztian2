@@ -1,18 +1,15 @@
+import { ProductType } from '../Products'
 import './productscard.css'
 
 
 
-{/*Hozz létre egy típust ami alklmas a products.json adatainak tárolására */}
-
-{/*Egészítsd ki a komponenst a megfelelő propsok használatával */}
-
-const ProductsCard = () => {
+const ProductsCard = (props : ProductType) => {
   return (
     <article className="products__card">
-            <img src="" alt="" className="products__img"/>
+            <img src={props.image} alt={props.title} className="products__img"/>
 
-            <h3 className="products__title"></h3>
-            <span className="products__price">$</span>
+            <h3 className="products__title">{props.title}</h3>
+            <span className="products__price">$ {props.price}</span>
 
             <button className="products__button">
                 <i className='bx bx-shopping-bag'></i>

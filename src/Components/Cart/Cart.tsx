@@ -1,20 +1,16 @@
 import 'boxicons/css/boxicons.min.css';
 import './cart.css'
+import { useState } from 'react';
+import { CartProps } from '../Header/Header';
 
-{/*A close ikonra kattintva zárja be a cartot */}
+const Cart = ({ showCart, setShowCart }: CartProps) => {
+    const [first, setFirst] = useState(1)
+    const [second, setSecond] = useState(1)
+    const [third, setThird] = useState(1)
 
-{/* Mind a három óra esetében a plusz és mínusz ikonra kattintva növelni és csökkenteni tudjuk az mennyiségeket */}
-
-{/* Lent számolja ki a végleges összeget és hogy hány darab órát rendel*/}
-
-{/*Ha nullára csökken a mennyiség nem kell eltünnie, de 0 alá ne menjen az értéke */}
-
-
-const Cart = () => {
-  
     return (
-    <div className="cart" id="cart">
-    <i className='bx bx-x cart__close' id="cart-close"></i>
+    <div className={`cart ${showCart ? 'cart--visible' : 'cart--hidden'}`} id="cart">
+    <i className='bx bx-x cart__close' id="cart-close" onClick={() => setShowCart(false)}></i>
 
     <h2 className="cart__title-center">My Cart</h2>
 
@@ -31,13 +27,13 @@ const Cart = () => {
                 <div className="cart__amount">
                     <div className="cart__amount-content">
                         <span className="cart__amount-box">
-                            <i className='bx bx-minus' ></i>
+                            <i className='bx bx-minus' onClick={(() => first > 0 && setFirst(first-1))}></i>
                         </span>
 
-                        <span className="cart__amount-number">1</span>
+                        <span className="cart__amount-number">{first}</span>
 
                         <span className="cart__amount-box">
-                            <i className='bx bx-plus' ></i>
+                            <i className='bx bx-plus' onClick={(() => setFirst(first+1))}></i>
                         </span>
                     </div>
 
@@ -58,13 +54,13 @@ const Cart = () => {
                 <div className="cart__amount">
                     <div className="cart__amount-content">
                         <span className="cart__amount-box">
-                            <i className='bx bx-minus' ></i>
+                            <i className='bx bx-minus' onClick={(() => second > 0 && setSecond(second-1))}></i>
                         </span>
 
-                        <span className="cart__amount-number">1</span>
+                        <span className="cart__amount-number">{second}</span>
 
                         <span className="cart__amount-box">
-                            <i className='bx bx-plus' ></i>
+                            <i className='bx bx-plus' onClick={(() => setSecond(second+1))}></i>
                         </span>
                     </div>
 
@@ -85,13 +81,13 @@ const Cart = () => {
                 <div className="cart__amount">
                     <div className="cart__amount-content">
                         <span className="cart__amount-box">
-                            <i className='bx bx-minus' ></i>
+                            <i className='bx bx-minus' onClick={(() => third > 0 && setThird(third-1))}></i>
                         </span>
 
-                        <span className="cart__amount-number">1</span>
+                        <span className="cart__amount-number">{third}</span>
 
-                        <span className="cart__amount-box">
-                            <i className='bx bx-plus' ></i>
+                        <span className="cart__amount-box" >
+                            <i className='bx bx-plus'onClick={(() => setThird(third+1))} ></i>
                         </span>
                     </div>
 
@@ -102,8 +98,8 @@ const Cart = () => {
     </div>
 
     <div className="cart__prices">
-        <span className="cart__prices-item">3 items</span>
-        <span className="cart__prices-total">$2880</span>
+        <span className="cart__prices-item">{first + second + third} items</span>
+        <span className="cart__prices-total">${first * 1050 + second * 850 + third * 980}</span>
     </div>
 </div>
   )

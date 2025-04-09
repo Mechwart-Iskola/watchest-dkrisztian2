@@ -1,13 +1,4 @@
 import './story.css'
-{/* Az alábbiakat állítsd be a story.css-ben */}
-
-{/* 767px fölöt kerüljenek egymás mellé a story_data és story_images egymás mellé */}
-
-{/* Story_-title mérete legyen h1-font-size */}
-
-/* Section__title szövegét alakítsd át nagybetűssé */
-
-
 
 const Story = () => {
   return (
@@ -31,7 +22,7 @@ const Story = () => {
         </div>
 
         <div className="story__images">
-            {/* Itt jelenítsd meg a story.png képet, add hozzá a story__img osztályt */}
+            <img src='/img/story.png' className='story__img'></img>
             <div className="story__square"></div>
         </div>
     </div>
